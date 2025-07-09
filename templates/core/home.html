@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <form method="POST" action="{% url 'core:create_bpm' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-4 p-2">
+                                    <input type="number" class="form-control" name="sys" id="sys" placeholder="SYS" required>
+                                </div>
+                                <div class="col-4 p-2">
+                                    <input type="number" class="form-control" name="dia" id="dia" placeholder="DIA" required>
+                                    
+                                </div>
+                                <div class="col-4 p-2">
+                                    <input type="number" class="form-control" name="pul" id="pul" placeholder="PUL" required>
+    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 p-2">
+                                    <input type="text" class="form-control" name="annotation" id="annotation" placeholder="Annotation">
+                                </div>
+                                <div class="col-12 pt-2 p-2">
+                                    <input type="datetime-local" class="form-control" id="datetime" name="datetime" value="{{ now }}">
+                                </div>
+                                <div class="col-12 p-2 d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {% include 'base/modules/btnSpinner.html' %}
+{% endblock %}
