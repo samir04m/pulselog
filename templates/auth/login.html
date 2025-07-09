@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                {% if form.errors %}
+                    <div class="alert alert-dismissible alert-secondary" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        Your credentials are incorrect.
+                    </div>
+                {% endif %}
+                <div class="card shadow">
+                    <div class="card-body p-4">
+                        <h4 class="card-title text-center mb-4">Login</h4>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="id_username" class="form-label">Username</label>
+                                <input type="text" name="username" class="form-control" id="id_username" autocomplete="off" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_password" class="form-label">Password</label>
+                                <input type="password" name="password" class="form-control" id="id_password" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-outline-primary" id="btnSpinner">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {% include 'base/modules/btnSpinner.html' %}
+{% endblock %}

@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-bs-theme', savedTheme);
+            }
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulse Log</title>
+
+    <link rel="icon" type="image/jpg" href="{% static 'img/logo.jpg' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/myStyles.css' %}">
+    <script src="{% static 'js/fontawesome-pro-all.min.js' %}"></script>
+</head>
+<body>
+    {% block navbar %}
+        {% include 'base/navbar.html' %}
+    {% endblock %}
+    
+    <main class="pt-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/sweetalert2.min.js' %}"></script>
+    <script src="{% static 'js/myScript.js' %}"></script>
+
+    {% include 'base/alert.html' %}
+    {% block script %}{% endblock %}
+</body>
+</html>

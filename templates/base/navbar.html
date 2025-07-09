@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary p-2">
+    <div class="container">
+        <a class="navbar-brand" href="#">Pulse Log</a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor04"
+            aria-controls="navbarColor04" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor04">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:Index' %}">
+                        <i class="fa-light fa-house-blank"></i> Home
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav m -auto">
+                <li class="nav-item dropdown" data-bs-theme="light">
+                    <a class="nav-link dropdown-toggle " href="#" id="theme-menu" aria-expanded="false"
+                        data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme">
+                        <i class="fa-light fa-lightbulb"></i>
+                        <span class="d-lg-none ms-2">Theme</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light"
+                                aria-pressed="false">
+                                <i class="bi bi-sun-fill"></i><span class="ms-2"><i class="fa-light fa-lightbulb-on"></i> Light</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark"
+                                aria-pressed="true">
+                                <i class="bi bi-moon-stars-fill"></i><span class="ms-2"><i class="fa-light fa-lightbulb-slash"></i> Dark</span>
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'core:Logout' %}"><i class="fa-light fa-right-from-bracket"></i> Sign out</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
