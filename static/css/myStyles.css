@@ -1,3 +1,13 @@
 .form-control {
     font-size: 16px !important;
 }
+
+td.table-yellow {
+    background-color: yellow !important;
+    color: black;
+}
+
+td.table-red {
+    background-color: red !important;
+    color: white;
+}

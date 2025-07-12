@@ -105,7 +105,8 @@ def check_daily_log(request, date):
     for bp in bloodPressureLogs:
         local_date = localtime(bp.date)
         hour = local_date.hour
-        bp_by_hour[hour].append(f"{bp.systolic}, {bp.diastolic}, {bp.pulse}")
+        # bp_by_hour[hour].append(f"{bp.systolic}, {bp.diastolic}, {bp.pulse}")
+        bp_by_hour[hour].append(bp)
 
     for food in foodLogs:
         local_date = localtime(food.date)

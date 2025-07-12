@@ -26,10 +26,25 @@
                                 <div class="text-muted small">—</div>
                             {% endif %}
                         </td>
-                        <td>
+                        <td class="p-0">
                             {% if item.bp %}
                                 {% for bp in item.bp %}
-                                    <div>{{ bp }}</div>
+                                    <table class="table table-bordered table-sm mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th class="table-info p-0">SYS</th>
+                                                <th class="table-info p-0">DIA</th>
+                                                <th class="table-info p-0">PUL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="{% if bp.systolic >= 140 %}table-red{% endif %}">{{ bp.systolic }}</td>
+                                                <td class="{% if bp.diastolic >= 90 %}table-red{% endif %}">{{ bp.diastolic }}</td>
+                                                <td class="{% if bp.pulse > 100 %}table-yellow{% endif %}">{{ bp.pulse }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 {% endfor %}
                             {% else %}
                                 <div class="text-muted small">—</div>
