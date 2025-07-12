@@ -5,7 +5,8 @@ from .views import CustomLoginView
 
 urlpatterns = [
     path('', views.Index, name='Index'),
-    path('create_blood_pressure_measurement', views.create_blood_pressure_measurement, name='create_bpm'),
+    path('create_blood_pressure_log', views.create_blood_pressure_log, name='create_blood_pressure_log'),
+    path('create_food_log', views.create_food_log, name='create_food_log'),
 
     path('login/', CustomLoginView.as_view(), name='Login'),
     path('logout/', views.Logout, name='Logout'),
