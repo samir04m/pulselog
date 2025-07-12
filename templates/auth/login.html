@@ -4,15 +4,24 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-4">
-                {% if form.errors %}
-                    <div class="alert alert-dismissible alert-secondary" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        Your credentials are incorrect.
-                    </div>
-                {% endif %}
-                <div class="card shadow">
+
+                <div class="text-center my-4 fs-1 animate__animated animate__fadeInDown">
+                    <i class="fa-light fa-heart-pulse fa-2x"></i>
+                </div>
+
+                <div class="card shadow animate__animated animate__fadeInUp">
                     <div class="card-body p-4">
                         <h4 class="card-title text-center mb-4">Login</h4>
+
+                        {% if form.errors %}
+                            <div class="py-2">
+                                <div class="alert alert-dismissible alert-danger" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    Your credentials are incorrect.
+                                </div>
+                            </div>   
+                        {% endif %}
+
                         <form method="post">
                             {% csrf_token %}
                             <div class="mb-3">
@@ -24,7 +33,7 @@
                                 <input type="password" name="password" class="form-control" id="id_password" required>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-outline-primary" id="btnSpinner">Login</button>
+                                <button type="submit" class="btn btn-primary" id="btnSpinner">Login</button>
                             </div>
                         </form>
                     </div>

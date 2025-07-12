@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
+from django.utils.timezone import localtime
 from django.utils import timezone
 from django.db import transaction
 from datetime import datetime
@@ -18,8 +19,11 @@ def Logout(request):
 
 @login_required
 def Index(request):
-    now = datetime.now().strftime('%Y-%m-%dT%H:%M')
-    return render(request, 'core/home.html', {'now': now})
+    context = {
+        'now': timezone.now(),
+        'now_str': datetime.now().strftime('%Y-%m-%dT%H:%M')
+    }
+    return render(request, 'core/home.html', context)
 
 @login_required
 def create_blood_pressure_log(request):
@@ -73,6 +77,57 @@ def create_food_log(request):
             messages.error(request, "An error occurred")
     
     return redirect('core:Index')
+
+@login_required
+def check_daily_log(request, date):
+    target_date = datetime.strptime(date, '%Y-%m-%d').date()
+
+    start_datetime = datetime.combine(target_date, datetime.min.time())
+    end_datetime = datetime.combine(target_date, datetime.max.time())
+
+    bloodPressureLogs = BloodPressureMeasurement.objects.filter(
+        user=request.user,
+        date__range=(start_datetime, end_datetime)
+    )
+
+    foodLogs = FoodLog.objects.filter(
+        user=request.user,
+        date__range=(start_datetime, end_datetime)
+    )
+
+    # Crear una lista con 24 posiciones (una por cada hora)
+    hours = [f"{(h % 12 or 12)}:00 {'AM' if h < 12 else 'PM'}" for h in range(24)]
+
+    # Inicializamos diccionarios para almacenar los logs por hora
+    bp_by_hour = {h: [] for h in range(24)}
+    food_by_hour = {h: [] for h in range(24)}
+
+    for bp in bloodPressureLogs:
+        local_date = localtime(bp.date)
+        hour = local_date.hour
+        bp_by_hour[hour].append(f"{bp.systolic}, {bp.diastolic}, {bp.pulse}")
+
+    for food in foodLogs:
+        local_date = localtime(food.date)
+        hour = local_date.hour
+        food_by_hour[hour].append(food.description)
+
+    hourly_data = []
+
+    for h in range(24):
+        food = food_by_hour.get(h, [])
+        bp = bp_by_hour.get(h, [])
+        hourly_data.append({
+            'hour': hours[h],
+            'food': food,
+            'bp': bp
+        })
+
+    return render(request, 'core/daily_log.html', {
+        'hours': hours,
+        'hourly_data': hourly_data,
+        'date': target_date,
+    })
 
 def getDate(datetime_str):
     try:

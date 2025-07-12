@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <h3 class="mb-4">Registro del día {{ date }}</h3>
+
+    <div class="table-responsive">
+        <table class="table table-bordered text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Hora</th>
+                    <th>Comida</th>
+                    <th>Presión arterial</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in hourly_data %}
+                    <tr>
+                        <th class="table-dark text-nowrap">{{ item.hour }}</th>
+                        <td>
+                            {% if item.food %}
+                                {% for food in item.food %}
+                                    <div>{{ food }}</div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="text-muted small">—</div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if item.bp %}
+                                {% for bp in item.bp %}
+                                    <div>{{ bp }}</div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="text-muted small">—</div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

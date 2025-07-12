@@ -13,6 +13,9 @@ class BloodPressureMeasurement(models.Model):
     class Meta:
         ordering = ['-date']
 
+    def __str__(self):
+        return '{} [{}]'.format(self.date, self.user)
+
 class FoodLog(models.Model):
     description = models.CharField(max_length=255, blank=True)
     date = models.DateTimeField(default=timezone.now)
@@ -20,3 +23,6 @@ class FoodLog(models.Model):
 
     class Meta:
         ordering = ['-date']
+
+    def __str__(self):
+        return '{} - {} [{}]'.format(self.description, self.date, self.user)
